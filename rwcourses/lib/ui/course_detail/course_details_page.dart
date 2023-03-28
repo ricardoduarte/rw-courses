@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:rwcourses/model/course.dart';
 import 'package:rwcourses/utils/string_extensions.dart';
 
@@ -19,6 +20,10 @@ class CourseDetailsPage extends StatelessWidget {
           _buildBanner(),
           _buildMain(context),
           _buildDetails(context),
+          TextButton(
+            onPressed: () => _launchCourse(course.courseId),
+            child: const Text('View Course'),
+          ),
         ],
       ),
     );
@@ -82,5 +87,9 @@ class CourseDetailsPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _launchCourse(String courseId) {
+    launch('https://kodeco.com/$courseId');
   }
 }
