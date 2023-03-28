@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rwcourses/constants.dart';
 import 'package:rwcourses/model/course.dart';
 import 'package:rwcourses/repository/course_repository.dart';
+import 'package:rwcourses/ui/course_detail/course_details_page.dart';
 import 'package:rwcourses/ui/courses/courses_controller.dart';
 
 class CoursesPage extends StatefulWidget {
@@ -24,12 +25,11 @@ class _CoursesPageState extends State<CoursesPage> {
           return const Center(child: CircularProgressIndicator());
         }
         return ListView.builder(
-          padding: const EdgeInsets.all(16.0),
-          itemCount: courses.length,
-          itemBuilder: (BuildContext context, int position) {
-            return _buildRow(courses[position]);
-          }
-        );
+            padding: const EdgeInsets.all(16.0),
+            itemCount: courses.length,
+            itemBuilder: (BuildContext context, int position) {
+              return _buildRow(courses[position]);
+            });
       },
     );
   }
@@ -44,8 +44,13 @@ class _CoursesPageState extends State<CoursesPage> {
         ),
         subtitle: Text(course.domainString),
         trailing: ClipRRect(
-          borderRadius: BorderRadius.circular(8.0),
-          child: Image.network(course.artworkUrl)),
+            borderRadius: BorderRadius.circular(8.0),
+            child: Image.network(course.artworkUrl)),
+        onTap: () =>
+            Navigator.of(context).push<MaterialPageRoute>(MaterialPageRoute(
+                builder: (context) => CourseDetailsPage(
+                      course: course,
+                    ))),
       ),
     );
   }
